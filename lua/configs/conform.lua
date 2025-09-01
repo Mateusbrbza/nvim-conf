@@ -5,6 +5,7 @@ local options = {
     html = { "prettier" },
     javascript = { "prettier" },
     typescript = { "prettier" },
+    go = { "gofumpt", "goimports-reviser", "golines" },
   },
 
   format_on_save = {

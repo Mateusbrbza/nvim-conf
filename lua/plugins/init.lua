@@ -9,7 +9,7 @@ return {
         "<CR>",
         ft = "copilot-chat",
         desc = "Submit Prompt",
-        remap = true
+        remap = true,
       },
       {
         "<leader>a",
@@ -17,8 +17,8 @@ return {
         desc = "+ai",
         mode = {
           "n",
-          "v"
-        }
+          "v",
+        },
       },
       {
         "<leader>aa",
@@ -39,7 +39,7 @@ return {
       {
         "<leader>ai",
         function()
-          local input = vim.fn.input("Quick Chat: ")
+          local input = vim.fn.input "Quick Chat: "
           if input ~= "" then
             require("CopilotChat").ask(input)
           end
@@ -51,49 +51,49 @@ return {
         "<leader>ax",
         "<CMD>CopilotChatExplain<CR>",
         desc = "Explain (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>ar",
         "<CMD>CopilotChatReview<CR>",
         desc = "Review (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>af",
         "<CMD>CopilotChatFix<CR>",
         desc = "Fix (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>ao",
         "<CMD>CopilotChatOptimize<CR>",
         desc = "Optimize (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>aD",
         "<CMD>CopilotChatDocs<CR>",
         desc = "Doc (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>at",
         "<CMD>CopilotChatTests<CR>",
         desc = "Generate Tests (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<A-c>",
         "<CMD>CopilotChatToggle<CR>",
         desc = "Toggle (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<A-m>",
         "<CMD>CopilotChatToggle<CR>",
         desc = "Toggle (CopilotChat)",
-        mode = { "n", "v" }
+        mode = { "n", "v" },
       },
       {
         "<leader>an",
@@ -107,17 +107,20 @@ return {
             end
           end
           local prompt = table.concat(filenames, "\n")
-          vim.fn.setreg('+', prompt)
-          vim.notify("Files added to clipboard: " .. table.concat(filenames, ", "), vim.log.levels.INFO)
+          vim.fn.setreg("+", prompt)
+          vim.notify(
+            "Files added to clipboard: " .. table.concat(filenames, ", "),
+            vim.log.levels.INFO
+          )
         end,
         desc = "Include Buffers in Prompt",
         mode = { "n", "v" },
       },
     },
     config = function(_, opts)
-      local chat = require("CopilotChat")
+      local chat = require "CopilotChat"
 
-      opts.chat_autocomplete = true 
+      opts.chat_autocomplete = true
 
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-chat",
@@ -129,58 +132,48 @@ return {
 
       opts.mappings = {
         complete = {
-          detail = 'Use @<Tab> or /<Tab> for options.',
-          insert = '<Tab>',
+          detail = "Use @<Tab> or /<Tab> for options.",
+          insert = "<Tab>",
         },
         close = {
-          normal = 'q',
-          insert = '<C-c>'
+          normal = "q",
+          insert = "<C-c>",
         },
         reset = {
-          normal = '<C-c>',
-          insert = ''
+          normal = "<C-c>",
+          insert = "",
         },
         submit_prompt = {
-          normal = '<CR>',
-          insert = '<C-m>'
+          normal = "<CR>",
+          insert = "<C-m>",
         },
         accept_diff = {
-          normal = '<C-y>',
-          insert = '<C-y>'
+          normal = "<C-y>",
+          insert = "<C-y>",
         },
         yank_diff = {
-          normal = 'gy',
+          normal = "gy",
         },
         show_diff = {
-          normal = 'gd'
+          normal = "gd",
         },
         show_info = {
-          normal = 'gp'
+          normal = "gp",
         },
         show_context = {
-          normal = 'gs'
+          normal = "gs",
         },
       }
-
 
       chat.setup(opts)
     end,
   },
 
   {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
-
-
-  {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
 
-  -- Don't forget to add the copilot.vim plugin from the
-  -- github copilot install instructions
   {
     "github/copilot.vim",
     lazy = false,
@@ -191,23 +184,23 @@ return {
         layout = {
           position = "right",
           ratio = 0.3,
-        }
+        },
       },
       suggestion = {
         auto_trigger = true,
         keymap = {
           accept = "<C-l>",
-        }
+        },
       },
     },
     config = function()
       -- Mapping tab is already used by NvChad
-      vim.g.copilot_no_tab_map = true;
-      vim.g.copilot_assume_mapped = true;
-      vim.g.copilot_tab_fallback = "";
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.g.copilot_tab_fallback = ""
       -- The mapping is set to other key, see custom/lua/mappings
       -- or run <leader>ch to see copilot mapping section
-    end
+    end,
   },
 
   {
@@ -218,10 +211,9 @@ return {
     "nvimtools/none-ls.nvim",
     event = "VeryLazy",
     opts = function()
-      return require("configs.null-ls")
+      return require "configs.null-ls"
     end,
   },
-
 
   {
     "neovim/nvim-lspconfig",
@@ -235,13 +227,13 @@ return {
     ft = {
       "javascript",
       "javascriptreact",
-      'typescript',
-      'typescriptreact',
-      'html',
+      "typescript",
+      "typescriptreact",
+      "html",
     },
     config = function()
-      require('nvim-ts-autotag').setup()
-    end
+      require("nvim-ts-autotag").setup()
+    end,
   },
 
   {
@@ -266,7 +258,51 @@ return {
         "tailwindcss-language-server",
         "eslint-lsp",
         "prettierd",
-      }
-    }
+        "gopls"
+      },
+    },
   },
+
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    config = function()
+      return require "configs.conform"
+    end,
+  },
+
+  {
+    "zapling/mason-conform.nvim",
+    event = "VeryLazy",
+    dependencies = { "conform.nvim" },
+    config = function()
+      return require "configs.mason-conform"
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+        return require "configs.lint"
+    end,
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-lspconfig" },
+    config = function()
+      return require "configs.mason-lspconfig"
+    end,
+  },
+
+  {
+    "rshkarin/mason-nvim-lint",
+    event = "VeryLazy",
+    dependencies = { "nvim-lint" },
+    config = function()
+      return require "configs.mason-nvim-lint"
+    end,
+  }
 }

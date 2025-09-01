@@ -33,13 +33,48 @@ return {
         desc = "Quick Chat (CopilotChat)",
         mode = { "n", "v" },
       },
-      { "<leader>ax", "<CMD>CopilotChatExplain<CR>",  desc = "Explain (CopilotChat)",        mode = { "n", "v" } },
-      { "<leader>ar", "<CMD>CopilotChatReview<CR>",   desc = "Review (CopilotChat)",         mode = { "n", "v" } },
-      { "<leader>af", "<CMD>CopilotChatFix<CR>",      desc = "Fix (CopilotChat)",            mode = { "n", "v" } },
-      { "<leader>ao", "<CMD>CopilotChatOptimize<CR>", desc = "Optimize (CopilotChat)",       mode = { "n", "v" } },
-      { "<leader>aD", "<CMD>CopilotChatDocs<CR>",     desc = "Doc (CopilotChat)",            mode = { "n", "v" } },
-      { "<leader>at", "<CMD>CopilotChatTests<CR>",    desc = "Generate Tests (CopilotChat)", mode = { "n", "v" } },
-      { "<A-c>",      "<CMD>CopilotChatToggle<CR>",   desc = "Toggle (CopilotChat)",         mode = { "n", "v" } },
+      {
+        "<leader>ax",
+        "<CMD>CopilotChatExplain<CR>",
+        desc = "Explain (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<leader>ar",
+        "<CMD>CopilotChatReview<CR>",
+        desc = "Review (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<leader>af",
+        "<CMD>CopilotChatFix<CR>",
+        desc = "Fix (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<leader>ao",
+        "<CMD>CopilotChatOptimize<CR>",
+        desc = "Optimize (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<leader>aD",
+        "<CMD>CopilotChatDocs<CR>",
+        desc = "Doc (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<leader>at",
+        "<CMD>CopilotChatTests<CR>",
+        desc = "Generate Tests (CopilotChat)",
+        mode = { "n", "v" }
+      },
+      {
+        "<A-c>",
+        "<CMD>CopilotChatToggle<CR>",
+        desc = "Toggle (CopilotChat)",
+        mode = { "n", "v" }
+      },
       {
         "<leader>an",
         function()
@@ -52,7 +87,6 @@ return {
             end
           end
           local prompt = table.concat(filenames, "\n")
-          -- Preenche o chat com a lista de arquivos sem executar a pergunta
           vim.fn.setreg('+', prompt)
           vim.notify("Files added to clipboard: " .. table.concat(filenames, ", "), vim.log.levels.INFO)
         end,
@@ -106,7 +140,6 @@ return {
           normal = 'gs'
         },
       }
-
 
       chat.setup(opts)
     end,
