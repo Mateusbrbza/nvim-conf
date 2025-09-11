@@ -238,14 +238,19 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ":TSUpdate",
-    opts = function()
-      return require "nvchad.configs.treesitter"
-    end,
+    opts = {
+      ensure_installed = { "bash", "json", "toml", "ini" }, -- Add parsers you want
+      highlight = { enable = true },
+    },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
+      -- Associate .env and .config files with 'sh' (bash) or other filetype
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = { ".env", ".config" },
+        callback = function()
+          vim.bo.filetype = "sh" -- or "ini", "toml", etc. as appropriate
+        end,
+      })
     end,
   },
 
@@ -284,7 +289,7 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-        return require "configs.lint"
+      return require "configs.lint"
     end,
   },
 
@@ -304,5 +309,13 @@ return {
     config = function()
       return require "configs.mason-nvim-lint"
     end,
-  }
+  },
+
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim"
+    }
+  },
 }

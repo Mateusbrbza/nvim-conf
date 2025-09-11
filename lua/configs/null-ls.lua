@@ -5,6 +5,7 @@ local opts = {
   sources = {
     -- Javascript
     null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.formatting.prettierd.with({ prefer_local = "node_modules/.bin" }),
     -- Go
     null_ls.builtins.formatting.goimports_reviser,
     null_ls.builtins.formatting.gofmt,
